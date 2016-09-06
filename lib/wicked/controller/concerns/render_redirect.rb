@@ -7,8 +7,6 @@ module Wicked::Controller::Concerns::RenderRedirect
 
     if @skip_to
       redirect_to wizard_path(@skip_to, @wicked_redirect_params || {}), options
-    else
-      render_step wizard_value(step), options
     end
   end
 

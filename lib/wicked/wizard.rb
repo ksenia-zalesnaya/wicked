@@ -49,7 +49,7 @@ module Wicked
       check_redirect_to_first_last!(the_step)
 
       valid_steps = steps + self.class::PROTECTED_STEPS
-      the_step = valid_steps.detect { |stp| stp.to_s == the_step }
+      the_step = valid_steps.detect { |stp| stp.to_sym == the_step.to_sym }
 
       raise InvalidStepError if the_step.nil?
       the_step
@@ -68,7 +68,7 @@ module Wicked
       check_steps!
       return if params[:id].nil?
 
-      @step = setup_step_from(params[:id])
+      @step = setup_step_from(params[:id].to_sym)
       set_previous_next(@step)
     end
     public
