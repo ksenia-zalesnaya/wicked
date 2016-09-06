@@ -3,11 +3,11 @@ module Wicked::Controller::Concerns::Path
 
 
   def next_wizard_path(options = {})
-    wizard_path(@next_step, options)
+    wizard_path(next_step, options)
   end
 
   def previous_wizard_path(options = {})
-    wizard_path(@previous_step, options)
+    wizard_path(previous_step, options)
   end
 
   def wicked_controller
@@ -21,12 +21,7 @@ module Wicked::Controller::Concerns::Path
 
   def wizard_path(goto_step = nil, options = {})
     options = options.respond_to?(:to_h) ? options.to_h : options
-    options = { :controller => wicked_controller,
-                :action     => 'show',
-                :id         => goto_step || params[:id],
-                :only_path  => true
-               }.merge options
-    url_for(options)
+    options = options.deep_merge(params.to_h).merge(id: goto_step || params[:id])
+    route_for(wicked_controller, options)
   end
 end
-

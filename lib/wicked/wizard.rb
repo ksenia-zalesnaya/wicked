@@ -21,14 +21,8 @@ module Wicked
     include Wicked::Controller::Concerns::Steps
 
     included do
-      include Wicked::Controller::Concerns::Action
-      # Give our Views helper methods!
-      helper_method :wizard_path,     :next_wizard_path, :previous_wizard_path,
-                    :step,            :wizard_steps,     :current_step?,
-                    :past_step?,      :future_step?,     :previous_step?,
-                    :next_step?
       # Set @step and @next_step variables
-      before_action :setup_wizard
+      before :setup_wizard
     end
 
     # forward to first step with whatever params are provided
@@ -80,4 +74,3 @@ module Wicked
     public
   end
 end
-
